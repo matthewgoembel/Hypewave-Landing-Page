@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function HeroSection() {
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-16 pb-32 bg-[#3ABEFF]">
+    <section className="min-h-screen flex flex-col items-center justify-center text-center px-10 pb-64 bg-[#3ABEFF]">
       <p className="text-[#000e44] text-lg md:text-xl lg:text-2xl mb-8 font-medium">
         The AI co-pilot built for traders
         </p>

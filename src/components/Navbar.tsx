@@ -24,12 +24,10 @@ export default function Navbar() {
         <span className="text-3xl font-extrabold text-[#0a0a0a] tracking-tight leading-none">
             Hypewave
         </span>
-        </div>
-        ``
 
 
       {/* Nav Links */}
-      <ul className="hidden md:flex gap-8 text-base font-semibold text-[#000e44]">
+      <ul className="hidden md:flex gap-4 pl-24 text-base font-semibold text-[#000e44]">
         {navLinks.map((link) => (
           <li
             key={link.label}
@@ -53,9 +51,10 @@ export default function Navbar() {
           </li>
         ))}
       </ul>
+      </div>
 
       {/* CTA */}
-      <button className="bg-black text-white text-base font-semibold px-6 py-2 rounded-full transition-all duration-200 hover:bg-[#3ABEFF] hover:text-black">
+      <button className="bg-black text-white text-base font-semibold px-8 py-4 rounded-full transition-all duration-200 hover:bg-[#3ABEFF] hover:text-black">
         Download
         </button>
     </nav>
