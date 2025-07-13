@@ -56,12 +56,12 @@ const SimplifyTradingSection: React.FC = () => {
             bg: "bg-[#00abff]/90",
           },
           {
-            title: "Clarity when you\nneed it",
+            title: "Clarity when\nyou need it",
             img: "/icons/chat1.png",
             bg: "bg-white/90",
           },
           {
-            title: "Get actionable\ntrade setups 24/7",
+            title: "Actionable trade\n setups 24/7\*",
             img: "/icons/signals1.png",
             bg: "bg-[#000D43]/90",
             text: "text-white/90",
@@ -77,7 +77,7 @@ const SimplifyTradingSection: React.FC = () => {
             className={`card ${card.bg} backdrop-blur-sm rounded-3xl p-6 flex flex-col items-center flex-shrink-0 w-full sm:w-[280px] md:w-[300px] lg:w-[320px] shadow-xl`}
           >
             <div
-              className={`text-left ml-2 mt-2 mb-4 text-2xl font-semibold leading-tight whitespace-pre-line ${
+              className={`text-left -ml-12 mt-2 mb-4 text-2xl font-semibold leading-tight whitespace-pre-line ${
                 card.text ?? "text-[#000e44]"
               }`}
             >

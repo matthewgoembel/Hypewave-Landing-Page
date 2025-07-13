@@ -13,26 +13,23 @@ export default function Footer() {
         <div className="flex flex-col max-w-md">
           <Link href="/">
             <Image
-              src="/logo.svg"
+              src="/icons/hypewave_icon.svg"
               alt="Hypewave Logo"
-              width={140}
-              height={40}
+              width={100}
+              height={30}
               className="mb-6"
             />
           </Link>
 
           <div className="flex items-center gap-4 mb-6">
-            <Link href="#" aria-label="X / Twitter">
-              <Image src="/icons/x.svg" alt="X" width={24} height={24} />
+            <Link href="https://x.com/hypewave_ai" aria-label="X / Twitter">
+              <Image src="/icons/x.svg" alt="X" width={32} height={32} />
             </Link>
-            <Link href="#">
-              <Image src="/icons/linkedin.svg" alt="LinkedIn" width={24} height={24} />
+            <Link href="https://discord.gg/DEuy7p36">
+              <Image src="/icons/discord.svg" alt="Discord" width={32} height={32} />
             </Link>
-            <Link href="#">
-              <Image src="/icons/discord.svg" alt="Discord" width={24} height={24} />
-            </Link>
-            <Link href="#">
-              <Image src="/icons/telegram.svg" alt="Telegram" width={24} height={24} />
+            <Link href="https://t.me/hypewaveai">
+              <Image src="/icons/telegram.svg" alt="Telegram" width={32} height={32} />
             </Link>
           </div>
 

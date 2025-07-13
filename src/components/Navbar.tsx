@@ -15,7 +15,7 @@ export default function Navbar() {
       {/* Logo + Text */}
       <div className="flex items-center">
         <Image
-            src="/hypewave.gif"
+            src="/icons/hypewave_icon.svg"
             alt="Hypewave Logo"
             width={70}
             height={70}
