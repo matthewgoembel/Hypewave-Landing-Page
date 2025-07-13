@@ -5,15 +5,13 @@ import Image from "next/image";
 
 export default function HeroSection() {
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center text-center px-10 pb- bg-[#3ABEFF]">
-      {/* Tagline */}
-      <p className="text-[#000e44] text-lg md:text-xl lg:text-2xl mt-18 mb-8 font-medium">
+    <section className="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-16 pb-32 bg-[#3ABEFF]">
+      <p className="text-[#000e44]/80 text-lg md:text-xl lg:text-2xl mb-8 font-medium">
         The AI co-pilot built for traders
       </p>
 
-      {/* Headline */}
-      <motion.h1
-        className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-[#000e44] leading-tight flex flex-col items-center gap-4"
+        <motion.h1
+        className="text-5xl md:text-6xl lg:text-8xl font-semibold text-[#000e44] leading-tight flex flex-col items-center gap-4"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}

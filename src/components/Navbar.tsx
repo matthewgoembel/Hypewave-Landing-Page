@@ -22,7 +22,7 @@ export default function Navbar() {
             className="object-contain"
         />
         <span className="text-3xl font-extrabold text-[#0a0a0a] tracking-tight leading-none">
-            Hypewave
+            Hypewave AI
         </span>
 
 
