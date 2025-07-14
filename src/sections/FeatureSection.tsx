@@ -42,26 +42,26 @@ const SimplifyTradingSection: React.FC = () => {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="flex justify-start max-w-7xl mx-auto mt-20 mb-8"
       >
-        <h3 className="inline-block ml-24 px-6 py-2 bg-white/90 text-[#000e44] text-2xl font-semibold tracking-wide rounded-full">
+        <h3 className="inline-block px-6 py-2 bg-white/90 text-[#000e44] text-2xl font-semibold tracking-wide rounded-3xl">
           Features
         </h3>
       </motion.div>
 
-      {/* Cards */}
-      <div className="flex flex-wrap justify-center gap-16 max-w-7xl mx-auto">
+      {/* Horizontally scrollable cards */}
+      <div className="flex space-x-6 overflow-x-auto snap-x snap-mandatory ml-64 px-6 pb-4">
         {[
           {
-            title: "News as soon as\nit comes out",
+            title: "News as soon as\nit comes out.",
             img: "/icons/news1.png",
             bg: "bg-[#00abff]/90",
           },
           {
-            title: "Clarity when\nyou need it",
             img: "/icons/chat1.png",
+            title: "Clarity when you\n need it. No more\nguessing.",
             bg: "bg-white/90",
           },
           {
-            title: "Actionable trade\n setups 24/7\*",
+            title: "Actionable trade\nsetups 24/7.",
             img: "/icons/signals1.png",
             bg: "bg-[#000D43]/90",
             text: "text-white/90",
@@ -74,25 +74,26 @@ const SimplifyTradingSection: React.FC = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
-            className={`card ${card.bg} backdrop-blur-sm rounded-3xl p-6 flex flex-col items-center flex-shrink-0 w-full sm:w-[280px] md:w-[300px] lg:w-[320px] shadow-xl`}
+            className={`snap-start self-start ${card.bg} backdrop-bl-sm p-4 flex flex-col items-start flex-shrink-0 w-[320px] md:w-[340px] lg:w-[450px] shadow-xl rounded-3xl`}
           >
+            {/* Title */}
             <div
-              className={`text-left -ml-12 mt-2 mb-4 text-2xl font-semibold leading-tight whitespace-pre-line ${
+              className={`text-left ml-4 mb-4 mt-4 text-4xl font-semibold leading-tight whitespace-pre-line ${
                 card.text ?? "text-[#000e44]"
               }`}
             >
               {card.title}
             </div>
-            <div className="w-full h-92 rounded-2xl overflow-hidden flex items-center justify-center">
-            <Image
+            {/* Image */}
+            <div className="w-160 h-160 rounded-xl overflow-hidden">
+              <Image
                 src={card.img}
                 alt={card.title}
-                width={500}
-                height={500}
-                className="object-cover w-full h-full rounded-2xl"
-            />
+                width={420}
+                height={200}
+                className="object-cover"
+              />
             </div>
-
           </motion.div>
         ))}
       </div>
