@@ -68,9 +68,9 @@ export default function Footer() {
             <Link href="/media-kit">Explore</Link>
           </div>
           <div className="flex flex-col gap-2">
-            <Link href="/privacy-policy">Privacy Policy</Link>
+            <Link href="/privacy">Privacy Policy</Link>
             <Link href="/terms">Terms of Service</Link>
-            <Link href="/cookies">Cookie Preferences</Link>
+            <Link href="/risk">Risk Disclosure</Link>
           </div>
         </div>
       </div>
