@@ -3,7 +3,7 @@ export const metadata = {
   description: 'Important risk disclosures for using Hypewave AI.',
 };
 
-export default function RiskPage() {
+export default function Page() {
   return (
     <main className="mx-auto max-w-3xl px-6 py-16 leading-7 text-neutral-900 dark:text-neutral-100">
       <h1 className="text-3xl font-bold mb-2">Investment & Risk Disclosure</h1>
