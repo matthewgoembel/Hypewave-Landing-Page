@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 :root {
-  --background: #05070a;
+  --background: #3ABEFF;
   --foreground: #ffffff;
   --font-sans: "Inter", sans-serif;
 }
