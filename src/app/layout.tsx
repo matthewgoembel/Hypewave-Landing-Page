@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/sections/Footer";
 
 export const metadata: Metadata = {
-  title: "Hypewave.ai – Trade Smarter",
+  title: "Hypewave AI – Trade Smarter",
   description: "AI-powered signals, bots, and CT alpha.",
 };
 
