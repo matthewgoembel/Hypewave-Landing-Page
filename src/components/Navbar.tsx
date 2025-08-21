@@ -4,10 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 const navLinks = [
-  { label: "About", href: "/about", icon: "/icons/learn.svg" },
-  { label: "Explore", href: "/explore", icon: "/icons/explore.svg" },
-  { label: "Pricing", href: "/pricing", icon: "/icons/pricing.svg" },
-  { label: "Support", href: "/support", icon: "/icons/support.svg" },
+  { label: "About", href: "/about", icon: "/icons/learn.svg" }, // added href only here
+  { label: "Explore", icon: "/icons/explore.svg" },
+  { label: "Pricing", icon: "/icons/pricing.svg" },
+  { label: "Support", icon: "/icons/support.svg" },
 ];
 
 export default function Navbar() {
@@ -33,11 +33,11 @@ export default function Navbar() {
               key={link.label}
               className="relative group px-4 py-2 cursor-pointer overflow-hidden"
             >
-              <Link href={link.href} className="relative z-10 flex items-center gap-2 text-nowrap">
-                {/* Swipe background */}
-                <span className="absolute inset-0 bg-[#3ABEFF] scale-x-0 origin-left transition-transform duration-300 ease-in-out group-hover:scale-x-100 rounded-full z-0" />
+              {/* Swipe background */}
+              <span className="absolute inset-0 bg-[#3ABEFF] scale-x-0 origin-left transition-transform duration-300 ease-in-out group-hover:scale-x-100 rounded-full z-0" />
 
-                {/* Icon + Label */}
+              {/* Icon + Label */}
+              <span className="relative z-10 flex items-center gap-2 text-nowrap">
                 <span className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                   <Image
                     src={link.icon}
@@ -46,8 +46,12 @@ export default function Navbar() {
                     height={16}
                   />
                 </span>
-                {link.label}
-              </Link>
+                {link.href ? (
+                  <Link href={link.href}>{link.label}</Link>
+                ) : (
+                  link.label
+                )}
+              </span>
             </li>
           ))}
         </ul>
