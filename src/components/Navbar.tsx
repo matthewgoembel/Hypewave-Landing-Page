@@ -3,7 +3,7 @@
 import Image from "next/image";
 
 const navLinks = [
-  { label: "Learn", icon: "/icons/learn.svg" },
+  { label: "About", icon: "/icons/learn.svg" },
   { label: "Explore", icon: "/icons/explore.svg" },
   { label: "Pricing", icon: "/icons/pricing.svg" },
   { label: "Support", icon: "/icons/support.svg" },
@@ -24,7 +24,6 @@ export default function Navbar() {
         <span className="text-3xl font-extrabold text-[#0a0a0a] tracking-tight leading-none">
             Hypewave AI
         </span>
-
 
       {/* Nav Links */}
       <ul className="hidden md:flex gap-4 pl-24 text-base font-semibold text-[#000e44]">
