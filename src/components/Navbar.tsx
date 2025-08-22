@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const navLinks = [
-  { label: "About", href: "/about", icon: "/icons/learn.svg" }, // added href only here
+  { label: "About", href: "/about", icon: "/icons/learn.svg" },
   { label: "Explore", icon: "/icons/explore.svg" },
   { label: "Pricing", icon: "/icons/pricing.svg" },
   { label: "Support", icon: "/icons/support.svg" },
@@ -15,16 +15,18 @@ export default function Navbar() {
     <nav className="w-full flex justify-between items-center px-10 py-6 bg-[#FFFFFF] shadow-md z-50 border-b border-[#b4d8f4]">
       {/* Logo + Text */}
       <div className="flex items-center">
-        <Image
-          src="/icons/hypewave_icon.svg"
-          alt="Hypewave Logo"
-          width={70}
-          height={70}
-          className="object-contain"
-        />
-        <span className="text-3xl font-extrabold text-[#0a0a0a] tracking-tight leading-none">
-          Hypewave AI
-        </span>
+        <Link href="/" className="flex items-center gap-2 cursor-pointer">
+          <Image
+            src="/icons/hypewave_icon.svg"
+            alt="Hypewave Logo"
+            width={70}
+            height={70}
+            className="object-contain"
+          />
+          <span className="text-3xl font-extrabold text-[#0a0a0a] tracking-tight leading-none">
+            Hypewave AI
+          </span>
+        </Link>
 
         {/* Nav Links */}
         <ul className="hidden md:flex gap-4 pl-24 text-base font-semibold text-[#000e44]">
