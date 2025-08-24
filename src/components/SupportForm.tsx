@@ -1,12 +1,20 @@
-// ================================
-// components/ui/SupportForm.tsx
-// ================================
 "use client";
 
 import { useState } from "react";
 
+type Status = "idle" | "loading" | "success" | "error";
+type SupportCategory = "support" | "billing" | "bug" | "feedback" | "partnership";
+
+interface FormValues {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  category: SupportCategory;
+}
+
 export default function SupportForm() {
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string>("");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -15,21 +23,34 @@ export default function SupportForm() {
     setError("");
 
     const form = e.currentTarget;
-    const formData = new FormData(form);
-    const payload = Object.fromEntries(formData.entries());
+
+    // Build a typed payload explicitly (no Object.fromEntries → any)
+    const formValues: FormValues = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value.trim(),
+      email: (form.elements.namedItem("email") as HTMLInputElement).value.trim(),
+      subject: (form.elements.namedItem("subject") as HTMLInputElement).value.trim(),
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value.trim(),
+      category: ((form.elements.namedItem("category") as HTMLSelectElement).value ||
+        "support") as SupportCategory,
+    };
 
     try {
       const res = await fetch("/api/support", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(formValues),
       });
 
-      if (!res.ok) throw new Error(await res.text());
+      if (!res.ok) {
+        const txt = await res.text();
+        throw new Error(txt || "Request failed");
+      }
+
       setStatus("success");
       form.reset();
-    } catch (err: any) {
-      setError(err?.message || "Something went wrong. Try again.");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Something went wrong. Try again.";
+      setError(message);
       setStatus("error");
     }
   }

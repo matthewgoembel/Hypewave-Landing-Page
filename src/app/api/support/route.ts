@@ -1,4 +1,3 @@
-// app/api/support/route.ts
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
@@ -12,7 +11,7 @@ interface SupportBody {
   category?: SupportCategory;
 }
 
-/** Very small runtime validator (keeps zod out) */
+/** Small runtime validator (keeps us dependency‑free). */
 function parseBody(x: unknown): { ok: true; data: SupportBody } | { ok: false; error: string } {
   if (typeof x !== "object" || x === null) return { ok: false, error: "Invalid JSON" };
   const o = x as Record<string, unknown>;
@@ -44,7 +43,7 @@ export async function POST(req: Request) {
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT || 587),
-      secure: false,           // STARTTLS on 587
+      secure: false, // STARTTLS on 587
       requireTLS: true,
       auth: {
         user: process.env.SMTP_USER,
