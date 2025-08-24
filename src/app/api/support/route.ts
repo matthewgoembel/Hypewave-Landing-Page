@@ -11,7 +11,7 @@ interface SupportBody {
   category?: SupportCategory;
 }
 
-/** Small runtime validator (keeps us dependency‑free). */
+/** Minimal runtime validator to avoid extra deps (e.g., zod) */
 function parseBody(x: unknown): { ok: true; data: SupportBody } | { ok: false; error: string } {
   if (typeof x !== "object" || x === null) return { ok: false, error: "Invalid JSON" };
   const o = x as Record<string, unknown>;
@@ -20,13 +20,13 @@ function parseBody(x: unknown): { ok: true; data: SupportBody } | { ok: false; e
   const email = typeof o.email === "string" ? o.email.trim() : "";
   const subject = typeof o.subject === "string" ? o.subject.trim() : "";
   const message = typeof o.message === "string" ? o.message.trim() : "";
-  const categoryRaw = typeof o.category === "string" ? (o.category as SupportCategory) : "support";
+  const rawCat = typeof o.category === "string" ? (o.category as SupportCategory) : "support";
 
   if (!name || !email || !subject || !message) {
     return { ok: false, error: "Missing required fields" };
   }
   const allowed: SupportCategory[] = ["support", "billing", "bug", "feedback", "partnership"];
-  const category = allowed.includes(categoryRaw) ? categoryRaw : "support";
+  const category = allowed.includes(rawCat) ? rawCat : "support";
 
   return { ok: true, data: { name, email, subject, message, category } };
 }
@@ -43,7 +43,7 @@ export async function POST(req: Request) {
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT || 587),
-      secure: false, // STARTTLS on 587
+      secure: false,          // STARTTLS on 587
       requireTLS: true,
       auth: {
         user: process.env.SMTP_USER,
