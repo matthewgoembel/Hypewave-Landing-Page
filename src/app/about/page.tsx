@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16 leading-7 text-neutral-900 dark:text-neutral-100">
+    <main className="mx-auto max-w-3xl px-6 py-16 leading-7 text-navy">
       <h1 className="text-3xl font-bold mb-2">About Hypewave AI</h1>
       <p className="text-sm text-neutral-500 mb-8">Your Personal Trading Assistant</p>
 
