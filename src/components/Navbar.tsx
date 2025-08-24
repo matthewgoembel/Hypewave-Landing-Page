@@ -5,9 +5,8 @@ import Link from "next/link";
 
 const navLinks = [
   { label: "About", href: "/about", icon: "/icons/learn.svg" },
-  { label: "Explore", icon: "/icons/explore.svg" },
   { label: "Pricing", icon: "/icons/pricing.svg" },
-  { label: "Support", icon: "/icons/support.svg" },
+  { label: "Support", href: "/support", icon: "/icons/support.svg" },
 ];
 
 export default function Navbar() {
