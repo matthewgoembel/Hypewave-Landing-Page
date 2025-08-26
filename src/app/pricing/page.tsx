@@ -30,11 +30,10 @@ export default function PricingPage() {
           ctaDisabled
           features={[
             "Core signals preview",
-            "News feed sampler",
-            "Limited chat questions",
-            "Basic indicators overview",
-            "Community access (read-only)",
-          ]}
+            "Core News feed",
+            "Hypewave chat questions",
+            "Customize Account"
+            ]}
         />
 
         {/* Premium */}
@@ -47,11 +46,13 @@ export default function PricingPage() {
           ctaLabel="Upgrade (coming soon)"
           features={[
             "Full real-time signals",
+            "Real-time news feed",
             "Advanced filters & watchlists",
-            "Expanded chat with chart uploads",
+            "Unlimited chat with chart uploads",
             "Priority news + economic calendar",
-            "Early access to new tools",
+            "Built in Ai Insights",
             "Support & feature voting",
+            "Private Hypewave alpha group access"
           ]}
         />
       </section>
