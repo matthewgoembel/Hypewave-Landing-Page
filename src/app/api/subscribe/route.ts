@@ -1,10 +1,11 @@
-// app/api/subscribe/route.ts
+// src/app/api/subscribe/route.ts
 import { NextResponse } from "next/server";
 import { getDb } from "@/lib/mongo";
+import { MongoServerError } from "mongodb";
 
 // --- Simple in-memory rate limiter ---
 const RATE_LIMIT_WINDOW_MS = 10_000; // 10 seconds
-const ipTimestamps = new Map<string, number>();
+const ipTimestamps: Map<string, number> = new Map();
 
 function normalizeEmail(raw?: string) {
   return (raw || "").trim().toLowerCase();
@@ -12,25 +13,26 @@ function normalizeEmail(raw?: string) {
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const { email, source = "footer", company } = body as {
+    const body = (await req.json()) as {
       email?: string;
       source?: string;
       company?: string; // honeypot
     };
 
-    // 🕵️ Server-side honeypot: silently drop
+    const { email, source = "footer", company } = body;
+
+    // 🕵️ Honeypot: silently drop if filled
     if (typeof company === "string" && company.trim() !== "") {
       return NextResponse.json({ ok: true });
     }
 
-    // Extract IP
+    // Extract IP & headers
     const headers = new Headers(req.headers);
     const ip =
       (headers.get("x-forwarded-for") || "").split(",")[0]?.trim() || "unknown";
 
-    // 🚦 Rate limiting by IP
-    const last = ipTimestamps.get(ip) || 0;
+    // 🚦 Rate limiting
+    const last = ipTimestamps.get(ip) ?? 0;
     const nowTs = Date.now();
     if (nowTs - last < RATE_LIMIT_WINDOW_MS) {
       return NextResponse.json(
@@ -40,6 +42,7 @@ export async function POST(req: Request) {
     }
     ipTimestamps.set(ip, nowTs);
 
+    // Validate email
     const normalized = normalizeEmail(email);
     if (!normalized || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalized)) {
       return NextResponse.json({ error: "Invalid email" }, { status: 400 });
@@ -68,21 +71,21 @@ export async function POST(req: Request) {
       },
     };
 
-    // Upsert: if email exists → update timestamp, else insert
+    // Upsert avoids duplicates
     const result = await col.updateOne(
       { email: normalized },
       { $setOnInsert: doc, $set: { updatedAt: now } },
       { upsert: true }
     );
 
-    // If no document was inserted, it means it already existed
     if (result.upsertedCount === 0) {
+      // Already existed
       return NextResponse.json({ ok: true, duplicate: true });
     }
 
     return NextResponse.json({ ok: true });
-  } catch (err: any) {
-    if (err?.code === 11000) {
+  } catch (err: unknown) {
+    if (err instanceof MongoServerError && err.code === 11000) {
       return NextResponse.json({ ok: true, duplicate: true });
     }
     console.error("Subscribe error:", err);
