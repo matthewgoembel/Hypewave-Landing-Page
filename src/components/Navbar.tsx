@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const navLinks = [
   { label: "About", href: "/about", icon: "/icons/learn.svg" },
-  { label: "Pricing", icon: "/icons/pricing.svg" },
+  { label: "Pricing", href: "/pricing", icon: "/icons/pricing.svg" },
   { label: "Support", href: "/support", icon: "/icons/support.svg" },
 ];
 
