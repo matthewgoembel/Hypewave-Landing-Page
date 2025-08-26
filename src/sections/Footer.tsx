@@ -4,8 +4,52 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [company, setCompany] = useState(""); // honeypot
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    setMessage(null);
+
+    // If honeypot is filled, silently drop
+    if (company.trim() !== "") {
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, source: "footer" }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        if (data.duplicate) {
+          setMessage("You're already subscribed ✅");
+        } else {
+          setMessage("Thanks for subscribing 🎉");
+        }
+        setEmail("");
+      } else {
+        setMessage(data?.error || "Something went wrong. Try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      setMessage("Network error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <footer className="bg-white border-t border-gray-200 text-[#222] px-6 py-12">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-12">
@@ -38,20 +82,40 @@ export default function Footer() {
             <p className="text-gray-600 mb-4">
               Stay up to date with the latest news, signals, and updates.
             </p>
-            <form className="flex flex-col sm:flex-row gap-2">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col sm:flex-row gap-2"
+            >
+              {/* Honeypot field */}
+              <input
+                type="text"
+                value={company}
+                onChange={(e) => setCompany(e.target.value)}
+                name="company"
+                tabIndex={-1}
+                autoComplete="off"
+                className="hidden"
+              />
+
               <input
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Your email address"
                 className="border border-gray-300 rounded-3xl px-3 py-2 flex-1"
                 required
               />
               <button
                 type="submit"
-                className="border border-black rounded-3xl px-4 py-2 hover:bg-black hover:text-white transition"
+                disabled={loading}
+                className="border border-black rounded-3xl px-4 py-2 hover:bg-black hover:text-white transition disabled:opacity-50"
               >
-                Subscribe
+                {loading ? "Subscribing..." : "Subscribe"}
               </button>
             </form>
+            {message && (
+              <p className="mt-2 text-sm text-gray-600">{message}</p>
+            )}
           </div>
         </div>
 
@@ -59,13 +123,9 @@ export default function Footer() {
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
           <div className="flex flex-col gap-2">
             <Link href="/">Home</Link>
-            <Link href="/features">Features</Link>
+            <Link href="/about">About</Link>
             <Link href="/pricing">Pricing</Link>
-          </div>
-          <div className="flex flex-col gap-2">
-            <Link href="/blog">Blog</Link>
-            <Link href="/announcements">Announcements</Link>
-            <Link href="/media-kit">Explore</Link>
+            <Link href="/support">Help</Link>
           </div>
           <div className="flex flex-col gap-2">
             <Link href="/privacy">Privacy Policy</Link>
