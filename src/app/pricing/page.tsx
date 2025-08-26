@@ -146,8 +146,7 @@ function PlanCard({
           "transition"
         ].join(" ")}
         // Placeholder: no actual link/actions yet
-        onClick={() => {}}
-      >
+        >
         {ctaLabel}
       </button>
     </div>
