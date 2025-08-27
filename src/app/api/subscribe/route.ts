@@ -49,7 +49,7 @@ export async function POST(req: Request) {
     }
 
     const db = await getDb();
-    const col = db.collection("user_emails");
+    const col = db.collection("email_subscribers");
 
     // Ensure unique index (idempotent)
     await col.createIndex({ email: 1 }, { unique: true });
