@@ -55,53 +55,18 @@ export default function SupportPage() {
           <h2 className="text-lg font-semibold mb-2">Contact</h2>
           <ul className="space-y-2 text-sm">
             <li>
-              📧 <a className="underline" href="mailto:support@hypewave.ai">support@hypewave.ai</a>
+              <a className="underline" href="mailto:support@hypewave.ai">support@hypewave.ai</a>
             </li>
             <li>
-              🧰 <Link className="underline" href="/docs">Product Docs</Link>
+              <Link className="underline" href="/docs">Product Docs</Link>
             </li>
             <li>
-              🗒️ <Link className="underline" href="/changelog">Release Notes</Link>
+              <Link className="underline" href="/changelog">Release Notes</Link>
             </li>
             <li>
-              🔔 <Link className="underline" href="/status">Service Status</Link>
+              <Link className="underline" href="/status">Service Status</Link>
             </li>
           </ul>
-        </div>
-      </section>
-
-      {/* Troubleshooting */}
-      <section aria-labelledby="troubleshoot" className="mt-10">
-        <h2 id="troubleshoot" className="text-xl font-semibold mb-3">Troubleshooting</h2>
-        <div className="rounded-xl border border-white/20 bg-white/10 backdrop-blur p-5">
-          <details className="mb-3">
-            <summary className="cursor-pointer font-medium">Signals aren’t showing up</summary>
-            <ol className="list-decimal pl-6 mt-2 text-sm space-y-1">
-              <li>Confirm your watchlist has at least one symbol selected.</li>
-              <li>Check the <Link href="/status" className="underline">Status Page</Link> for incidents.</li>
-              <li>Ensure notifications are enabled in your app settings and OS settings.</li>
-              <li>Pull to refresh (mobile) or click refresh in the extension panel.</li>
-            </ol>
-          </details>
-
-          <details className="mb-3">
-            <summary className="cursor-pointer font-medium">Can’t log in (Google/Apple)</summary>
-            <ul className="list-disc pl-6 mt-2 text-sm space-y-1">
-              <li>Verify you’re on the latest app version.</li>
-              <li>Toggle Airplane mode (mobile) then try again.</li>
-              <li>Clear site data (extension) and retry sign‑in.</li>
-              <li>If it persists, email <a className="underline" href="mailto:support@hypewave.ai">support@hypewave.ai</a> with your device + screenshot.</li>
-            </ul>
-          </details>
-
-          <details>
-            <summary className="cursor-pointer font-medium">Bot (Henri) isn’t responding</summary>
-            <ul className="list-disc pl-6 mt-2 text-sm space-y-1">
-              <li>Use the command <code>/help</code> to verify connectivity.</li>
-              <li>Check the #announcements channel for maintenance notices.</li>
-              <li>Try again in a new DM with the bot (rate limits may apply).</li>
-            </ul>
-          </details>
         </div>
       </section>
 
