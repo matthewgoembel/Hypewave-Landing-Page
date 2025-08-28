@@ -157,8 +157,8 @@ const SimplifyTradingSection: React.FC = () => {
               const el = trackRef.current;
               if (!el) return;
 
-              let startX = e.pageX - el.offsetLeft;
-              let scrollLeft = el.scrollLeft;
+              const startX = e.pageX - el.offsetLeft;  // ← const now
+              const scrollLeft = el.scrollLeft;        // ← const now
 
               const onMouseMove = (ev: MouseEvent) => {
                 const x = ev.pageX - el.offsetLeft;
