@@ -126,7 +126,7 @@ const SimplifyTradingSection: React.FC = () => {
   // Updated cards list (adds Economic + Profit, replaces News image with Lottie)
   const cards = [
     {
-      title: "Clarity when you\n need it. No more\nguessing.",
+      title: "A trading partner and clarity when you\n need it. No more\nguessing.",
       body: (
         <div className="w-full h-[220px] rounded-xl overflow-hidden flex items-center justify-center">
           <div ref={chatRef} className="w-full h-full" />
@@ -136,7 +136,7 @@ const SimplifyTradingSection: React.FC = () => {
       text: "text-[#000e44]",
     },
     {
-      title: "News as soon as\nit comes out.",
+      title: "24/7 News as soon as\nit comes out.",
       body: (
         <div className="w-full h-[220px] rounded-xl overflow-hidden flex items-center justify-center">
           {/* replaced JPG with continuous Lottie */}
@@ -147,7 +147,7 @@ const SimplifyTradingSection: React.FC = () => {
       text: "text-[#000e44]",
     },
     {
-      title: "Economic Pulse:\nKnow the macro.",
+      title: "Economic Pulse.\nAlawys know the macro.",
       body: (
         <div className="w-full h-[220px] rounded-xl overflow-hidden flex items-center justify-center">
           <div ref={economicRef} className="w-full h-full" />
@@ -157,7 +157,7 @@ const SimplifyTradingSection: React.FC = () => {
       text: "text-[#000e44]",
     },
     {
-      title: "Profit with Hypewave:\nTrade with confidence.",
+      title: "Become a more profitable and Confidence Trader.",
       body: (
         <div className="w-full h-[220px] rounded-xl overflow-hidden flex items-center justify-center">
           <div ref={moneyRef} className="w-full h-full" />
