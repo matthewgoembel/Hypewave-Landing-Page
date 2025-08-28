@@ -20,16 +20,24 @@ const CARD_H = 420;   // base card height
 const GAP = 20;       // carousel gap
 
 const SimplifyTradingSection: React.FC = () => {
+  // Existing refs
   const chatRef = useRef<HTMLDivElement | null>(null);
   const signalsRef = useRef<HTMLDivElement | null>(null);
-
   const chatAnim = useRef<AnimationItem | null>(null);
   const signalsAnim = useRef<AnimationItem | null>(null);
 
+  // NEW: refs for autoplaying Lotties (economic, money, news)
+  const economicRef = useRef<HTMLDivElement | null>(null);
+  const moneyRef = useRef<HTMLDivElement | null>(null);
+  const newsRef = useRef<HTMLDivElement | null>(null);
+  const economicAnim = useRef<AnimationItem | null>(null);
+  const moneyAnim = useRef<AnimationItem | null>(null);
+  const newsAnim = useRef<AnimationItem | null>(null);
+
   const trackRef = useRef<HTMLDivElement | null>(null);
 
-  // init lottie
   useEffect(() => {
+    // Existing hover-play animations
     if (chatRef.current && !chatAnim.current) {
       chatAnim.current = lottie.loadAnimation({
         container: chatRef.current,
@@ -49,6 +57,36 @@ const SimplifyTradingSection: React.FC = () => {
       });
     }
 
+    // NEW: always-on animations (loop + autoplay)
+    if (economicRef.current && !economicAnim.current) {
+      economicAnim.current = lottie.loadAnimation({
+        container: economicRef.current,
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        path: "/animations/economic.json",
+      });
+    }
+    if (moneyRef.current && !moneyAnim.current) {
+      moneyAnim.current = lottie.loadAnimation({
+        container: moneyRef.current,
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        path: "/animations/money.json",
+      });
+    }
+    if (newsRef.current && !newsAnim.current) {
+      newsAnim.current = lottie.loadAnimation({
+        container: newsRef.current,
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        path: "/animations/news.json",
+      });
+    }
+
+    // Hover handlers only for chat/signals (keep your original behavior)
     const onHover = (el: HTMLElement, anim: AnimationItem) => {
       const enter = () => { anim.setDirection(1); anim.play(); };
       const leave = () => { anim.setDirection(-1); anim.play(); };
@@ -68,8 +106,14 @@ const SimplifyTradingSection: React.FC = () => {
       cleanups.forEach((fn) => fn());
       chatAnim.current?.destroy();
       signalsAnim.current?.destroy();
+      economicAnim.current?.destroy();
+      moneyAnim.current?.destroy();
+      newsAnim.current?.destroy();
       chatAnim.current = null;
       signalsAnim.current = null;
+      economicAnim.current = null;
+      moneyAnim.current = null;
+      newsAnim.current = null;
     };
   }, []);
 
@@ -80,6 +124,7 @@ const SimplifyTradingSection: React.FC = () => {
     trackRef.current.scrollBy({ left: delta, behavior: "smooth" });
   };
 
+  // Updated cards list (adds Economic + Profit, replaces News image with Lottie)
   const cards = [
     {
       title: "Clarity when you\n need it. No more\nguessing.",
@@ -92,17 +137,31 @@ const SimplifyTradingSection: React.FC = () => {
       text: "text-[#000e44]",
     },
     {
-      
       title: "News as soon as\nit comes out.",
       body: (
-        <div className="w-full h-[220px] rounded-xl overflow-hidden">
-          <Image
-            src="/icons/news.jpg"
-            alt="News as soon as it comes out."
-            width={720}
-            height={420}
-            className="h-full w-full object-cover"
-          />
+        <div className="w-full h-[220px] rounded-xl overflow-hidden flex items-center justify-center">
+          {/* replaced JPG with continuous Lottie */}
+          <div ref={newsRef} className="w-full h-full" />
+        </div>
+      ),
+      bg: "bg-white/95",
+      text: "text-[#000e44]",
+    },
+    {
+      title: "Economic Pulse:\nKnow the macro.",
+      body: (
+        <div className="w-full h-[220px] rounded-xl overflow-hidden flex items-center justify-center">
+          <div ref={economicRef} className="w-full h-full" />
+        </div>
+      ),
+      bg: "bg-white/95",
+      text: "text-[#000e44]",
+    },
+    {
+      title: "Profit with Hypewave:\nTrade with confidence.",
+      body: (
+        <div className="w-full h-[220px] rounded-xl overflow-hidden flex items-center justify-center">
+          <div ref={moneyRef} className="w-full h-full" />
         </div>
       ),
       bg: "bg-white/95",
@@ -152,30 +211,30 @@ const SimplifyTradingSection: React.FC = () => {
       <div className="relative max-w-7xl mx-auto px-6">
         {/* Track */}
         <div
-            ref={trackRef}
-            className="no-scrollbar flex gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory px-1 py-2 cursor-grab active:cursor-grabbing select-none"
-            onMouseDown={(e) => {
-              const el = trackRef.current;
-              if (!el) return;
+          ref={trackRef}
+          className="no-scrollbar flex gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory px-1 py-2 cursor-grab active:cursor-grabbing select-none"
+          onMouseDown={(e) => {
+            const el = trackRef.current;
+            if (!el) return;
 
-              const startX = e.pageX - el.offsetLeft;  // ← const now
-              const scrollLeft = el.scrollLeft;        // ← const now
+            const startX = e.pageX - el.offsetLeft;
+            const scrollLeft = el.scrollLeft;
 
-              const onMouseMove = (ev: MouseEvent) => {
-                const x = ev.pageX - el.offsetLeft;
-                const walk = x - startX;
-                el.scrollLeft = scrollLeft - walk;
-              };
+            const onMouseMove = (ev: MouseEvent) => {
+              const x = ev.pageX - el.offsetLeft;
+              const walk = x - startX;
+              el.scrollLeft = scrollLeft - walk;
+            };
 
-              const onMouseUp = () => {
-                document.removeEventListener("mousemove", onMouseMove);
-                document.removeEventListener("mouseup", onMouseUp);
-              };
+            const onMouseUp = () => {
+              document.removeEventListener("mousemove", onMouseMove);
+              document.removeEventListener("mouseup", onMouseUp);
+            };
 
-              document.addEventListener("mousemove", onMouseMove);
-              document.addEventListener("mouseup", onMouseUp);
-            }}
-          >
+            document.addEventListener("mousemove", onMouseMove);
+            document.addEventListener("mouseup", onMouseUp);
+          }}
+        >
           {cards.map((c, i) => (
             <motion.div
               key={i}
@@ -184,7 +243,7 @@ const SimplifyTradingSection: React.FC = () => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.25 }}
-              className={`snap-center flex-shrink-0 w-[${CARD_W}px] h-[${CARD_H}px] rounded-3xl shadow-xl ${c.bg} ${c.text} p-5 text-left grid grid-rows-[auto_1fr]`}
+              className={`snap-center flex-shrink-0 rounded-3xl shadow-xl ${c.bg} ${c.text} p-5 text-left grid grid-rows-[auto_1fr]`}
               style={{ width: CARD_W, height: CARD_H }}
             >
               <div className="text-2xl md:text-3xl font-semibold leading-snug whitespace-pre-line">
