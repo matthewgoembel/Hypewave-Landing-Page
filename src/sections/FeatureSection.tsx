@@ -2,7 +2,6 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 import lottie, { AnimationItem } from "lottie-web";
 
