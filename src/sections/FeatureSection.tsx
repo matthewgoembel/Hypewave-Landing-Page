@@ -1,24 +1,83 @@
+// src/sections/FeatureSection.tsx
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { Variants } from "framer-motion";
+import { motion, Variants } from "framer-motion";
+import lottie, { AnimationItem } from "lottie-web";
 
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: (custom) => ({
     opacity: 1,
     y: 0,
-    transition: {
-      delay: (custom as number) * 0.2,
-      duration: 0.6,
-      ease: "easeOut",
-    },
+    transition: { delay: (custom as number) * 0.2, duration: 0.6, ease: "easeOut" },
   }),
 };
 
 const SimplifyTradingSection: React.FC = () => {
+  const chatContainerRef = useRef<HTMLDivElement | null>(null);
+  const signalsContainerRef = useRef<HTMLDivElement | null>(null);
+
+  const chatAnimRef = useRef<AnimationItem | null>(null);
+  const signalsAnimRef = useRef<AnimationItem | null>(null);
+
+  useEffect(() => {
+    // Create animations
+    if (chatContainerRef.current && !chatAnimRef.current) {
+      chatAnimRef.current = lottie.loadAnimation({
+        container: chatContainerRef.current,
+        renderer: "svg",
+        loop: false,
+        autoplay: false,
+        path: "/animations/chat.json",
+      });
+    }
+    if (signalsContainerRef.current && !signalsAnimRef.current) {
+      signalsAnimRef.current = lottie.loadAnimation({
+        container: signalsContainerRef.current,
+        renderer: "svg",
+        loop: false,
+        autoplay: false,
+        path: "/animations/signals.json",
+      });
+    }
+
+    // Hover handlers: forward on enter, reverse on leave
+    const wireHover = (el: HTMLElement, anim: AnimationItem) => {
+      const onEnter = () => {
+        anim.setDirection(1);
+        anim.play();
+      };
+      const onLeave = () => {
+        anim.setDirection(-1);
+        anim.play();
+      };
+      el.addEventListener("mouseenter", onEnter);
+      el.addEventListener("mouseleave", onLeave);
+      return () => {
+        el.removeEventListener("mouseenter", onEnter);
+        el.removeEventListener("mouseleave", onLeave);
+      };
+    };
+
+    const cleanups: Array<() => void> = [];
+    if (chatContainerRef.current && chatAnimRef.current) {
+      cleanups.push(wireHover(chatContainerRef.current, chatAnimRef.current));
+    }
+    if (signalsContainerRef.current && signalsAnimRef.current) {
+      cleanups.push(wireHover(signalsContainerRef.current, signalsAnimRef.current));
+    }
+
+    return () => {
+      cleanups.forEach((fn) => fn());
+      chatAnimRef.current?.destroy();
+      signalsAnimRef.current?.destroy();
+      chatAnimRef.current = null;
+      signalsAnimRef.current = null;
+    };
+  }, []);
+
   return (
     <motion.section
       initial={{ opacity: 0, scale: 0.95 }}
@@ -52,17 +111,39 @@ const SimplifyTradingSection: React.FC = () => {
         {[
           {
             title: "News as soon as\nit comes out.",
-            img: "/icons/news.jpg",
+            media: (
+              <div className="w-160 h-160 rounded-xl overflow-hidden">
+                <Image
+                  src="/icons/news.jpg"
+                  alt="News as soon as it comes out."
+                  width={420}
+                  height={200}
+                  className="object-cover"
+                />
+              </div>
+            ),
             bg: "bg-[#00abff]/90",
+            text: "text-[#000e44]",
           },
           {
-            img: "/chat.gif",
             title: "Clarity when you\n need it. No more\nguessing.",
+            media: (
+              <div className="w-[420px] h-[200px] rounded-xl overflow-hidden flex items-center justify-center">
+                {/* Lottie mount point */}
+                <div ref={chatContainerRef} className="w-[420px] h-[200px]" />
+              </div>
+            ),
             bg: "bg-white/90",
+            text: "text-[#000e44]",
           },
           {
             title: "Actionable trade\nsetups 24/7.",
-            img: "/icons/signals.svg",
+            media: (
+              <div className="w-[420px] h-[200px] rounded-xl overflow-hidden flex items-center justify-center">
+                {/* Lottie mount point */}
+                <div ref={signalsContainerRef} className="w-[420px] h-[200px]" />
+              </div>
+            ),
             bg: "bg-[#000D43]/90",
             text: "text-white/90",
           },
@@ -76,24 +157,12 @@ const SimplifyTradingSection: React.FC = () => {
             viewport={{ once: true, amount: 0.3 }}
             className={`snap-start self-start ${card.bg} backdrop-bl-sm p-4 flex flex-col items-start flex-shrink-0 w-[320px] md:w-[340px] lg:w-[450px] shadow-xl rounded-3xl`}
           >
-            {/* Title */}
             <div
-              className={`text-left ml-4 mb-4 mt-4 text-4xl font-semibold leading-tight whitespace-pre-line ${
-                card.text ?? "text-[#000e44]"
-              }`}
+              className={`text-left ml-4 mb-4 mt-4 text-4xl font-semibold leading-tight whitespace-pre-line ${card.text ?? "text-[#000e44]"}`}
             >
               {card.title}
             </div>
-            {/* Image */}
-            <div className="w-160 h-160 rounded-xl overflow-hidden">
-              <Image
-                src={card.img}
-                alt={card.title}
-                width={420}
-                height={200}
-                className="object-cover"
-              />
-            </div>
+            {card.media}
           </motion.div>
         ))}
       </div>

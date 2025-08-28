@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "framer-motion": "^12.23.0",
+    "lottie-web": "^5.13.0",
     "mongodb": "^6.18.0",
     "next": "15.3.3",
     "nodemailer": "^7.0.5",
