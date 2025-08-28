@@ -52,17 +52,17 @@ const SimplifyTradingSection: React.FC = () => {
         {[
           {
             title: "News as soon as\nit comes out.",
-            img: "/icons/news1.png",
+            img: "/icons/news.jpg",
             bg: "bg-[#00abff]/90",
           },
           {
-            img: "/icons/chat1.png",
+            img: "/chat.gif",
             title: "Clarity when you\n need it. No more\nguessing.",
             bg: "bg-white/90",
           },
           {
             title: "Actionable trade\nsetups 24/7.",
-            img: "/icons/signals1.png",
+            img: "/icons/signals.svg",
             bg: "bg-[#000D43]/90",
             text: "text-white/90",
           },
