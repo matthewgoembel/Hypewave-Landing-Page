@@ -151,9 +151,30 @@ const SimplifyTradingSection: React.FC = () => {
       <div className="relative max-w-7xl mx-auto px-6">
         {/* Track */}
         <div
-          ref={trackRef}
-            className="no-scrollbar flex gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory px-1 py-2"
-        >
+            ref={trackRef}
+            className="no-scrollbar flex gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory px-1 py-2 cursor-grab active:cursor-grabbing select-none"
+            onMouseDown={(e) => {
+              const el = trackRef.current;
+              if (!el) return;
+
+              let startX = e.pageX - el.offsetLeft;
+              let scrollLeft = el.scrollLeft;
+
+              const onMouseMove = (ev: MouseEvent) => {
+                const x = ev.pageX - el.offsetLeft;
+                const walk = x - startX;
+                el.scrollLeft = scrollLeft - walk;
+              };
+
+              const onMouseUp = () => {
+                document.removeEventListener("mousemove", onMouseMove);
+                document.removeEventListener("mouseup", onMouseUp);
+              };
+
+              document.addEventListener("mousemove", onMouseMove);
+              document.addEventListener("mouseup", onMouseUp);
+            }}
+          >
           {cards.map((c, i) => (
             <motion.div
               key={i}
