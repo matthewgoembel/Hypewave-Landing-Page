@@ -82,6 +82,17 @@ const SimplifyTradingSection: React.FC = () => {
 
   const cards = [
     {
+      title: "Clarity when you\n need it. No more\nguessing.",
+      body: (
+        <div className="w-full h-[220px] rounded-xl overflow-hidden flex items-center justify-center">
+          <div ref={chatRef} className="w-full h-full" />
+        </div>
+      ),
+      bg: "bg-white/95",
+      text: "text-[#000e44]",
+    },
+    {
+      
       title: "News as soon as\nit comes out.",
       body: (
         <div className="w-full h-[220px] rounded-xl overflow-hidden">
@@ -92,16 +103,6 @@ const SimplifyTradingSection: React.FC = () => {
             height={420}
             className="h-full w-full object-cover"
           />
-        </div>
-      ),
-      bg: "bg-white/95",
-      text: "text-[#000e44]",
-    },
-    {
-      title: "Clarity when you\n need it. No more\nguessing.",
-      body: (
-        <div className="w-full h-[220px] rounded-xl overflow-hidden flex items-center justify-center">
-          <div ref={chatRef} className="w-full h-full" />
         </div>
       ),
       bg: "bg-white/95",
