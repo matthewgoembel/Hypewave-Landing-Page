@@ -1,7 +1,7 @@
 // src/sections/Preview.tsx
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 
 type Props = {
   src?: string;
@@ -14,59 +14,58 @@ export default function Preview({
   title = "See It in Action",
   caption = "Signals • Chat • News • Calendar",
 }: Props) {
-  const prefersReduced = useReducedMotion();
-
   return (
-    <section className="relative bg-[#3dc1ff] px-6 md:px-10 py-16 md:py-24">
-      <div className="mx-auto max-w-[720px]">
+    <section className="relative overflow-visible bg-[#3dc1ff] px-6 md:px-10 py-20 md:py-24">
+      <div className="mx-auto max-w-[560px]">
         {title && (
-          <h2 className="mb-8 text-center text-[#0b1b3b] font-extrabold leading-tight text-[clamp(32px,5vw,60px)] tracking-tight">
+          <h2 className="mb-48 text-center text-[#0b1b3b] font-semibold text- 4xl leading-[1.05] text-[clamp(32px,6vw,72px)] tracking-tight">
             {title}
           </h2>
         )}
 
-        {/* Wrapper draws the outside gradient stroke via ::before (mask) */}
-        <div
-          className="
-            relative mx-auto w-full
-            max-w-[420px] sm:max-w-[460px] md:max-w-[520px]
-            [--stroke:14px] sm:[--stroke:12px] md:[--stroke:14px]
-            [--radius:28px] sm:[--radius:28px] md:[--radius:32px]
-            before:content-[''] before:absolute before:inset-0
-            before:rounded-[calc(var(--radius)+var(--stroke))]
-            before:[padding:var(--stroke)]
-            before:[background:conic-gradient(from_200deg_at_30%_0%,#3dadff,#6fa8ff_40%,#a56bff)]
-            before:[-webkit-mask:linear-gradient(#000_0_0)_content-box,linear-gradient(#000_0_0)]
-            before:[-webkit-mask-composite:xor]
-            before:[mask-composite:exclude]
-            before:pointer-events-none
-            before:shadow-[0_20px_50px_rgba(0,0,0,0.35)]
-          "
-        >
+        {/* Phone wrapper */}
+        <div className="relative isolate mx-auto w-full max-w-[480px]">
+          {/* THICK OUTER RING (visible border) – sits behind the phone */}
+          <div
+            aria-hidden
+            className="
+              pointer-events-none absolute -inset-[12px] z-0
+              rounded-[40px]
+              [background:linear-gradient(135deg,#3dadff,#6fa8ff_40%,#a56bff)]
+              shadow-[0_24px_60px_rgba(0,0,0,0.35)]
+            "
+          />
+
+          {/* BOARD BACKING (directly behind the video, same size) */}
+          <div
+            aria-hidden
+            className="
+              pointer-events-none absolute inset-0 z-0
+              rounded-[28px]
+              [background:radial-gradient(120%_140%_at_80%_0%,rgba(9,88,207,0.35),rgba(61,193,255,0)_60%),linear-gradient(180deg,#0b1b3b,#1a2e5b)]
+            "
+          />
+
+          {/* VIDEO – always on top, not cut off */}
           <motion.video
-            initial={prefersReduced ? false : { opacity: 0, y: 16, scale: 0.985 }}
-            whileInView={prefersReduced ? undefined : { opacity: 1, y: 0, scale: 1 }}
+            initial={{ opacity: 0, y: 24, scale: 0.98 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             autoPlay
             loop
             muted
             playsInline
             preload="metadata"
-            aria-label="Hypewave preview"
-            className="
-              block w-full aspect-[9/16]
-              rounded-[var(--radius)]            /* gentle curve on VIDEO only */
-              object-contain                      /* guarantees no content crop */
-              bg-black
-            "
+            className="relative z-10 block w-full aspect-[9/16] rounded-[28px] overflow-hidden object-cover bg-black"
           >
             <source src={src} type="video/mp4" />
+            Your browser does not support the video tag.
           </motion.video>
         </div>
 
         {caption && (
-          <p className="mt-6 text-center text-[#0b1b3b]/80 text-sm md:text-base">
+          <p className="mt-4 text-center text-[#0b1b3b]/80 text-sm md:text-base">
             {caption}
           </p>
         )}
