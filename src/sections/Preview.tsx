@@ -23,42 +23,38 @@ export default function Preview({
           </h2>
         )}
 
-        <div className="relative mx-auto w-full max-w-[480px]">
-          {/* Soft halo behind the phone (optional) */}
+        {/* Phone wrapper (creates its own stacking context so the ring stays behind) */}
+        <div className="relative isolate mx-auto w-full max-w-[480px]">
+          {/* Outside gradient ring (no overlap) */}
           <div
             aria-hidden
-            className="absolute -inset-[26px] -z-10 rounded-[2.6rem]
+            className="absolute -inset-[10px] rounded-[2.0rem] bg-gradient-to-br
+                       from-[#3dadff] via-[#6fa8ff] to-[#a56bff] z-0 pointer-events-none"
+          />
+          {/* Optional soft halo behind the ring */}
+          <div
+            aria-hidden
+            className="absolute -inset-[28px] rounded-[2.6rem] z-[-1]
                        bg-[radial-gradient(600px_600px_at_50%_40%,rgba(61,173,255,0.28),transparent_70%)]
-                       blur-xl"
+                       blur-xl pointer-events-none"
           />
 
-          {/* OUTSIDE gradient stroke (no overlap with the video) */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -inset-[10px] rounded-[2.0rem]
-                       bg-gradient-to-br from-[#3dadff] via-[#6fa8ff] to-[#a56bff]"
-          />
-
-          {/* Animated video (fills the box edge-to-edge) */}
-          <motion.div
+          {/* Video (always above ring) */}
+          <motion.video
             initial={{ opacity: 0, y: 24, scale: 0.98 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="relative z-10"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            className="relative z-10 block w-full aspect-[9/16] rounded-[1.8rem] object-cover bg-black"
           >
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="metadata"
-              className="block w-full aspect-[9/16] rounded-[1.8rem] object-cover bg-black"
-            >
-              <source src={src} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          </motion.div>
+            <source src={src} type="video/mp4" />
+            Your browser does not support the video tag.
+          </motion.video>
         </div>
 
         {caption && (
