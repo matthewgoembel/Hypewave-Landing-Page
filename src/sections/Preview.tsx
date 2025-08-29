@@ -34,31 +34,28 @@ export default function Preview({
               shadow-[0_24px_60px_rgba(0,0,0,0.35)]
             "
           >
-            {/* backplate keeps a clean edge behind video if any letterboxing */}
-            <div className="rounded-[28px] bg-[#0b1b3b]">
-              <motion.video
-                initial={{ opacity: 0, y: 24, scale: 0.98 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, amount: 0.4 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="metadata"
-                className="
-                  block w-full aspect-[9/16]
-                  rounded-[28px]             /* slight curve on the video only */
-                  object-contain             /* ensures no content is cropped */
-                  bg-black
-                "
-              >
-                <source src={src} type="video/mp4" />
-                Your browser does not support the video tag.
-              </motion.video>
-            </div>
+            <motion.video
+              initial={{ opacity: 0, y: 24, scale: 0.98 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              className="
+                block w-full aspect-[9/16]
+                rounded-[28px]             /* curve video edges */
+                object-contain             /* prevents cropping */
+                bg-black
+              "
+            >
+              <source src={src} type="video/mp4" />
+            </motion.video>
           </div>
         </div>
+
 
         {caption && (
           <p className="mt-4 text-center text-[#0b1b3b]/80 text-sm md:text-base">
