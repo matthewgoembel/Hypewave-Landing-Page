@@ -126,7 +126,7 @@ const SimplifyTradingSection: React.FC = () => {
   // Updated cards list (adds Economic + Profit, replaces News image with Lottie)
   const cards = [
     {
-      title: "A trading partner and clarity when you\n need it. No more\nguessing.",
+      title: "Clarity when\nyou need it.\nNo more guessing.",
       body: (
         <div className="w-full h-[220px] rounded-xl overflow-hidden flex items-center justify-center">
           <div ref={chatRef} className="w-full h-full" />
@@ -143,7 +143,7 @@ const SimplifyTradingSection: React.FC = () => {
           <div ref={newsRef} className="w-full h-full" />
         </div>
       ),
-      bg: "bg-white/95",
+      bg: "bg-[#b6ffa6]",
       text: "text-[#000e44]",
     },
     {
@@ -157,7 +157,17 @@ const SimplifyTradingSection: React.FC = () => {
       text: "text-[#000e44]",
     },
     {
-      title: "Become a more profitable and Confidence Trader.",
+      title: "Actionable trade\nsetups 24/7.",
+      body: (
+        <div className="w-full h-[220px] rounded-xl overflow-hidden flex items-center justify-center">
+          <div ref={signalsRef} className="w-full h-full" />
+        </div>
+      ),
+      bg: "bg-[#1427cc]",
+      text: "text-white/90",
+    },
+    {
+      title: "Become a more profitable and confident Trader.",
       body: (
         <div className="w-full h-[220px] rounded-xl overflow-hidden flex items-center justify-center">
           <div ref={moneyRef} className="w-full h-full" />
@@ -165,16 +175,6 @@ const SimplifyTradingSection: React.FC = () => {
       ),
       bg: "bg-white/95",
       text: "text-[#000e44]",
-    },
-    {
-      title: "Actionable trade\nsetups 24/7.",
-      body: (
-        <div className="w-full h-[220px] rounded-xl overflow-hidden flex items-center justify-center">
-          <div ref={signalsRef} className="w-full h-full" />
-        </div>
-      ),
-      bg: "bg-[#000D43]",
-      text: "text-white/90",
     },
   ];
 
@@ -188,7 +188,7 @@ const SimplifyTradingSection: React.FC = () => {
     >
       {/* Title */}
       <div className="sticky top-0 z-10 bg-[#3ABEFF] py-8 pb-16">
-        <h2 className="text-5xl md:text-6xl lg:text-7xl font-semibold text-[#000e44]">
+        <h2 className="text-5xl md:text-6xl lg:text-7xl font-semibold text-[#000e44] marginBottom: 50">
           Never trade alone again.
         </h2>
       </div>
