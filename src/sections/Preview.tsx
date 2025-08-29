@@ -61,7 +61,7 @@ export default function Preview({
             muted
             playsInline
             preload="metadata"
-            className="relative z-10 block w-full aspect-[9/16] rounded-[var(--r)] object-cover bg-black"
+            className="relative z-10 block w-full h-auto rounded-[var(--r)] object-contain bg-black"
           >
             <source src={src} type="video/mp4" />
             Your browser does not support the video tag.
