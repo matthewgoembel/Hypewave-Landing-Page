@@ -16,12 +16,12 @@ export default function Preview({
 }: Props) {
   return (
     // SECTION gets the same blue + spacing as your hero vibe
-    <section className="relative overflow-hidden bg-[#3dc1ff] px-6 md:px-10 py-20 md:py-24">
+    <section className="relative overflow-hidden bg-[#3dc1ff] px-6 md:px-10 py-20 md:py-24 pb: 48">
       <div className="mx-auto max-w-[520px]">
         {/* BIG, NAVY, TIGHT HEADING */}
         {title && (
           <h2 className="mb-8 text-center text-[#0b1b3b]
-                         font-extrabold leading-[1.05]
+                         font-semibold leading-[1.05]
                          text-[clamp(32px,6vw,72px)] tracking-tight">
             {title}
           </h2>
