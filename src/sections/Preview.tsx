@@ -23,23 +23,30 @@ export default function Preview({
           </h2>
         )}
 
-        {/* Phone wrapper (creates its own stacking context so the ring stays behind) */}
+        {/* Phone wrapper */}
         <div className="relative isolate mx-auto w-full max-w-[480px]">
-          {/* Outside gradient ring (no overlap) */}
+          {/* THICK OUTER RING (visible border) – sits behind the phone */}
           <div
             aria-hidden
-            className="absolute -inset-[10px] rounded-[2.0rem] bg-gradient-to-br
-                       from-[#3dadff] via-[#6fa8ff] to-[#a56bff] z-0 pointer-events-none"
-          />
-          {/* Optional soft halo behind the ring */}
-          <div
-            aria-hidden
-            className="absolute -inset-[28px] rounded-[2.6rem] z-[-1]
-                       bg-[radial-gradient(600px_600px_at_50%_40%,rgba(61,173,255,0.28),transparent_70%)]
-                       blur-xl pointer-events-none"
+            className="
+              pointer-events-none absolute -inset-[12px] z-0
+              rounded-[40px]
+              [background:linear-gradient(135deg,#3dadff,#6fa8ff_40%,#a56bff)]
+              shadow-[0_24px_60px_rgba(0,0,0,0.35)]
+            "
           />
 
-          {/* Video (always above ring) */}
+          {/* BOARD BACKING (directly behind the video, same size) */}
+          <div
+            aria-hidden
+            className="
+              pointer-events-none absolute inset-0 z-0
+              rounded-[28px]
+              [background:radial-gradient(120%_140%_at_80%_0%,rgba(9,88,207,0.35),rgba(61,193,255,0)_60%),linear-gradient(180deg,#0b1b3b,#1a2e5b)]
+            "
+          />
+
+          {/* VIDEO – always on top, not cut off */}
           <motion.video
             initial={{ opacity: 0, y: 24, scale: 0.98 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -50,7 +57,7 @@ export default function Preview({
             muted
             playsInline
             preload="metadata"
-            className="relative z-10 block w-full aspect-[9/16] rounded-[1.8rem] object-cover bg-black"
+            className="relative z-10 block w-full aspect-[9/16] rounded-[28px] overflow-hidden object-cover bg-black"
           >
             <source src={src} type="video/mp4" />
             Your browser does not support the video tag.
