@@ -38,25 +38,26 @@ export default function Preview({
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="rounded-[2.3rem] p-3 md:p-4 shadow-2xl ring-1 ring-white/20
-                       bg-gradient-to-br from-[#3dadff] via-[#6fa8ff] to-[#a56bff]"
-          >
-            {/* Inner separator to sell the bezel */}
-            <div className="rounded-[2rem] p-1 bg-white/5 backdrop-blur-sm">
-              {/* 🚫 No notch here – you already have it in the video */}
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="metadata"
-                className="block w-full aspect-[9/16] rounded-[1.8rem] overflow-hidden bg-black"
-              >
-                <source src={src} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+            className="rounded-[2.3rem] p-4 shadow-2xl ring-1 ring-white/20
+                        bg-gradient-to-br from-[#3dadff] via-[#6fa8ff] to-[#a56bff]"
+            >
+            {/* Bezel (no inner padding → no sliver gaps) */}
+            <div className="rounded-[2rem] overflow-hidden bg-black">
+                {/* Aspect wrapper */}
+                <div className="relative w-full aspect-[9/16]">
+                <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="metadata"
+                    className="absolute inset-0 h-full w-full object-cover"  // <-- fills, no black bars
+                >
+                    <source src={src} type="video/mp4" />
+                </video>
+                </div>
             </div>
-          </motion.div>
+            </motion.div>
         </div>
 
         {caption && (
