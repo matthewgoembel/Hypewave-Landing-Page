@@ -18,7 +18,7 @@ export default function Preview({
     <section className="relative overflow-visible bg-[#3dc1ff] px-6 md:px-10 py-20 md:py-24">
       <div className="mx-auto max-w-[560px]">
         {title && (
-          <h2 className="mb-8 text-center text-[#0b1b3b] font-extrabold leading-[1.05] text-[clamp(32px,6vw,72px)] tracking-tight">
+          <h2 className="mb-8 text-center text-[#0b1b3b] font-semibold leading-[1.05] text-[clamp(32px,6vw,72px)] tracking-tight">
             {title}
           </h2>
         )}
