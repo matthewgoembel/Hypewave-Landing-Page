@@ -187,7 +187,7 @@ const SimplifyTradingSection: React.FC = () => {
       className="relative bg-[#3ABEFF] text-center overflow-hidden py-24"
     >
       {/* Title */}
-      <div className="sticky top-0 z-10 bg-[#3ABEFF] py-8 pb-16">
+      <div className="sticky top-0 z-10 bg-[#3ABEFF] py-8 pb-52">
         <h2 className="text-5xl md:text-6xl lg:text-7xl font-semibold text-[#000e44] marginBottom: 50">
           Never trade alone again.
         </h2>
