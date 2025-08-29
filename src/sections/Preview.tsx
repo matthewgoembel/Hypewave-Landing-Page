@@ -64,7 +64,7 @@ export default function Preview({
             className="relative z-10 block w-full h-auto rounded-[var(--r)] object-contain bg-black"
           >
             <source src={src} type="video/mp4" />
-            Your browser does not support the video tag.
+            Your browser does not support the video ta.
           </motion.video>
         </div>
 
