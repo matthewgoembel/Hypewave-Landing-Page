@@ -13,8 +13,9 @@ export default function PricingPage() {
           Pricing
         </h1>
         <p className="mt-3 text-base md:text-lg opacity-90 max-w-2xl mx-auto">
-          Start free. When you want more power, unlock Premium for just
-          <span className="font-semibold"> $9.99/mo</span>.
+          Start free. During launch, unlock Premium for{" "}
+          <span className="font-semibold">$4.99/mo</span>{" "}
+          <span className="opacity-80">(regular&nbsp;$9.99/mo)</span>.
         </p>
       </section>
 
@@ -32,18 +33,22 @@ export default function PricingPage() {
             "Core signals preview",
             "Core News feed",
             "Hypewave chat questions",
-            "Customize Account"
-            ]}
+            "Customize Account",
+          ]}
         />
 
         {/* Premium */}
         <PlanCard
           highlight
           name="Premium"
-          price="$9.99"
+          // Launch sale price
+          price="$4.99"
+          compareAt="$9.99"
+          saleNote="Launch sale"
           period="/mo"
           badge="Best value"
           ctaLabel="Upgrade (coming soon)"
+          ctaDisabled
           features={[
             "Full real-time signals",
             "Real-time news feed",
@@ -52,7 +57,7 @@ export default function PricingPage() {
             "Priority news + economic calendar",
             "Built in Ai Insights",
             "Support & feature voting",
-            "Private Hypewave alpha group access"
+            "Private Hypewave alpha group access",
           ]}
         />
       </section>
@@ -90,6 +95,8 @@ function PlanCard({
   ctaDisabled,
   badge,
   highlight,
+  compareAt,
+  saleNote,
 }: {
   name: string;
   price: string;
@@ -99,6 +106,8 @@ function PlanCard({
   ctaDisabled?: boolean;
   badge?: string;
   highlight?: boolean;
+  compareAt?: string; // crossed-out original price
+  saleNote?: string; // small pill below price (e.g., "Launch sale")
 }) {
   return (
     <div
@@ -121,10 +130,24 @@ function PlanCard({
 
       <div className="mb-4">
         <h3 className="text-2xl font-bold drop-shadow-sm">{name}</h3>
-        <div className="mt-3 flex items-end gap-2">
-          <span className="text-4xl md:text-5xl font-extrabold leading-none drop-shadow-sm">{price}</span>
-          <span className="opacity-90 mb-1">{period}</span>
+
+        <div className="mt-3 flex items-end gap-3 flex-wrap">
+          {compareAt ? (
+            <span className="line-through opacity-70 text-lg mb-1">{compareAt}</span>
+          ) : null}
+          <div className="flex items-end gap-2">
+            <span className="text-4xl md:text-5xl font-extrabold leading-none drop-shadow-sm">
+              {price}
+            </span>
+            <span className="opacity-90 mb-1">{period}</span>
+          </div>
         </div>
+
+        {compareAt ? (
+          <span className="mt-2 inline-flex w-fit items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/90 text-white">
+            {saleNote ?? "Launch sale"}
+          </span>
+        ) : null}
       </div>
 
       <ul className="mt-2 space-y-3 flex-1">
@@ -144,10 +167,9 @@ function PlanCard({
             ? "bg-white text-[#001F3F] hover:opacity-90"
             : "bg-white/10 text-white hover:bg-white/20",
           ctaDisabled ? "opacity-60 cursor-not-allowed" : "",
-          "transition"
+          "transition",
         ].join(" ")}
-        // Placeholder: no actual link/actions yet
-        >
+      >
         {ctaLabel}
       </button>
     </div>
@@ -193,3 +215,5 @@ function FAQ({ q, a }: { q: string; a: string }) {
     </details>
   );
 }
+
+
