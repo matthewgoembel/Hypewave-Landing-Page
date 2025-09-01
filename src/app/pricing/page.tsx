@@ -1,3 +1,6 @@
+"use client";
+import { useState } from "react";
+
 export const metadata = {
   title: "Pricing — Hypewave AI",
   description:
@@ -5,15 +8,33 @@ export const metadata = {
 };
 
 export default function PricingPage() {
+  const [showBanner, setShowBanner] = useState(true);
+
   return (
     <main className="px-6 md:px-10 lg:px-12 py-16 max-w-6xl mx-auto text-[var(--foreground)]">
+      {/* Launch Banner */}
+      {showBanner && (
+        <div className="mb-8 flex items-center justify-between rounded-xl bg-emerald-500/90 text-white px-4 py-3 shadow-lg">
+          <p className="text-sm font-semibold">
+            🔥 Launch special: <span className="underline">100% free for now</span> — billing coming soon
+          </p>
+          <button
+            onClick={() => setShowBanner(false)}
+            className="ml-4 text-white/80 hover:text-white transition"
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
       {/* Header */}
       <section className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight drop-shadow-sm">
           Pricing
         </h1>
         <p className="mt-3 text-base md:text-lg opacity-90 max-w-2xl mx-auto">
-          Start free. During launch, unlock Premium for{" "}
+          🚀 <span className="font-bold text-emerald-400">All plans are 100% free right now</span>{" "}
+          while we’re in launch mode. Premium will later be{" "}
           <span className="font-semibold">$4.99/mo</span>{" "}
           <span className="opacity-80">(regular&nbsp;$9.99/mo)</span>.
         </p>
@@ -26,7 +47,7 @@ export default function PricingPage() {
           name="Free"
           price="$0"
           period="/mo"
-          badge="Get started"
+          badge="100% Free Now"
           ctaLabel="Current Plan"
           ctaDisabled
           features={[
@@ -41,7 +62,6 @@ export default function PricingPage() {
         <PlanCard
           highlight
           name="Premium"
-          // Launch sale price
           price="$4.99"
           compareAt="$9.99"
           saleNote="Launch sale"
@@ -70,15 +90,15 @@ export default function PricingPage() {
         <div className="space-y-4">
           <FAQ
             q="Is anything actually billed right now?"
-            a="No. This page is visual only while billing is being finalized. Buttons are disabled for now."
+            a="Nope — everything is 100% free during launch. Billing isn’t active yet, so no credit card is required."
           />
           <FAQ
             q="Can I switch plans later?"
-            a="Yes. You'll be able to upgrade, downgrade, or cancel any time from your account once billing is enabled."
+            a="Yes. Once billing is enabled you’ll be able to upgrade, downgrade, or cancel any time from your account."
           />
           <FAQ
             q="Do you offer a student discount?"
-            a="We're considering it. If you'd benefit from a discount, let us know—your feedback helps us prioritize."
+            a="We’re considering it. If you’d benefit from a discount, let us know—your feedback helps us prioritize."
           />
         </div>
       </section>
@@ -106,23 +126,27 @@ function PlanCard({
   ctaDisabled?: boolean;
   badge?: string;
   highlight?: boolean;
-  compareAt?: string; // crossed-out original price
-  saleNote?: string; // small pill below price (e.g., "Launch sale")
+  compareAt?: string;
+  saleNote?: string;
 }) {
   return (
     <div
       className={[
         "relative flex flex-col p-6 rounded-2xl border shadow-xl backdrop-blur",
-        // glassy surface that works on blue bg
         "bg-white/10 border-white/20",
-        // subtle hover
         "hover:bg-white/15 transition-colors",
         highlight ? "ring-2 ring-white/60" : "",
       ].join(" ")}
     >
       {badge ? (
         <div className="absolute -top-3 left-6">
-          <span className="inline-block text-[11px] uppercase tracking-wider font-semibold px-2.5 py-1 rounded-full bg-white/90 text-[#001F3F]">
+          <span
+            className={`inline-block text-[11px] uppercase tracking-wider font-semibold px-2.5 py-1 rounded-full ${
+              badge.includes("Free")
+                ? "bg-emerald-500 text-white"
+                : "bg-white/90 text-[#001F3F]"
+            }`}
+          >
             {badge}
           </span>
         </div>
@@ -215,5 +239,3 @@ function FAQ({ q, a }: { q: string; a: string }) {
     </details>
   );
 }
-
-
