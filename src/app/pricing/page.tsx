@@ -1,5 +1,4 @@
-"use client";
-import { useState } from "react";
+// src/app/pricing/page.tsx
 
 export const metadata = {
   title: "Pricing — Hypewave AI",
@@ -7,25 +6,20 @@ export const metadata = {
     "Choose your plan. Start free, upgrade to Premium for pro features when you're ready.",
 };
 
-export default function PricingPage() {
-  const [showBanner, setShowBanner] = useState(true);
-
+export default function Page() {
   return (
     <main className="px-6 md:px-10 lg:px-12 py-16 max-w-6xl mx-auto text-[var(--foreground)]">
-      {/* Launch Banner */}
-      {showBanner && (
-        <div className="mb-8 flex items-center justify-between rounded-xl bg-emerald-500/90 text-white px-4 py-3 shadow-lg">
-          <p className="text-sm font-semibold">
-            🔥 Launch special: <span className="underline">100% free for now</span> — billing coming soon
-          </p>
-          <button
-            onClick={() => setShowBanner(false)}
-            className="ml-4 text-white/80 hover:text-white transition"
-          >
-            ✕
-          </button>
-        </div>
-      )}
+      {/* Launch Banner (static) */}
+      <div
+        className="mb-8 flex items-center justify-center rounded-xl bg-emerald-500/90 text-white px-4 py-3 shadow-lg"
+        role="status"
+        aria-live="polite"
+      >
+        <p className="text-sm font-semibold text-center">
+          🔥 <span className="underline">Launch special:</span> All plans are{" "}
+          <span className="underline">100% free right now</span> — billing coming soon
+        </p>
+      </div>
 
       {/* Header */}
       <section className="text-center mb-12">
@@ -33,9 +27,8 @@ export default function PricingPage() {
           Pricing
         </h1>
         <p className="mt-3 text-base md:text-lg opacity-90 max-w-2xl mx-auto">
-          🚀 <span className="font-bold text-emerald-400">All plans are 100% free right now</span>{" "}
-          while we’re in launch mode. Premium will later be{" "}
-          <span className="font-semibold">$4.99/mo</span>{" "}
+          🚀 <span className="font-bold text-emerald-400">Everything is free during launch</span>. When
+          billing turns on, Premium will be <span className="font-semibold">$4.99/mo</span>{" "}
           <span className="opacity-80">(regular&nbsp;$9.99/mo)</span>.
         </p>
       </section>
@@ -193,6 +186,7 @@ function PlanCard({
           ctaDisabled ? "opacity-60 cursor-not-allowed" : "",
           "transition",
         ].join(" ")}
+        aria-disabled={ctaDisabled ? true : undefined}
       >
         {ctaLabel}
       </button>
