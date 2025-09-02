@@ -27,8 +27,7 @@ export default function Page() {
           Pricing
         </h1>
         <p className="mt-3 text-base md:text-lg opacity-90 max-w-2xl mx-auto">
-          🚀 <span className="font-bold text-emerald-400">Everything is free during launch</span>. When
-          billing turns on, Premium will be <span className="font-semibold">$4.99/mo</span>{" "}
+          When billing returns, Premium will be <span className="font-semibold">$4.99/mo</span>{" "}
           <span className="opacity-80">(regular&nbsp;$9.99/mo)</span>.
         </p>
       </section>
