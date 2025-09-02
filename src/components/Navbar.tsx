@@ -102,7 +102,7 @@ export default function Navbar() {
         {/* RIGHT — Download pinned to the far right */}
         <div className="flex shrink-0 items-center">
           <Link
-            href="/download"
+            href="/"
             className="rounded-full bg-black px-3 py-2 text-xs font-semibold text-white shadow-sm transition-colors hover:bg-[#3ABEFF] hover:text-black md:px-8 md:py-4 md:text-base"
           >
             Download
