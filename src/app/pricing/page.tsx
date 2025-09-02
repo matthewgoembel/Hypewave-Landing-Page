@@ -17,7 +17,7 @@ export default function Page() {
       >
         <p className="text-sm font-semibold text-center">
           🔥 <span className="underline">Launch special:</span> All plans are{" "}
-          <span className="underline">100% free right now</span> — billing coming soon
+          <span className="underline">100% free right now!</span>
         </p>
       </div>
 
