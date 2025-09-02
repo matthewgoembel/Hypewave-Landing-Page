@@ -39,7 +39,6 @@ export default function Page() {
           name="Free"
           price="$0"
           period="/mo"
-          badge="100% Free Now"
           ctaLabel="Current Plan"
           ctaDisabled
           features={[
